@@ -1,0 +1,31 @@
+From 498cd06baed01d0337b494df68eb98d75c2e2f91 Mon Sep 17 00:00:00 2001
+From: aagu <aaguisme@gmail.com>
+Date: Sat, 31 Jan 2026 11:09:30 +0800
+Subject: [PATCH] fix lock screen rotation when auto ratation is disabled
+
+Change-Id: I0394617ab2d2d091a2c835c4a9cf3443be10ea27
+---
+ .../shade/NotificationShadeWindowControllerImpl.java       | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/packages/SystemUI/src/com/android/systemui/shade/NotificationShadeWindowControllerImpl.java b/packages/SystemUI/src/com/android/systemui/shade/NotificationShadeWindowControllerImpl.java
+index 2809fb76ff..e737ac0595 100644
+--- a/packages/SystemUI/src/com/android/systemui/shade/NotificationShadeWindowControllerImpl.java
++++ b/packages/SystemUI/src/com/android/systemui/shade/NotificationShadeWindowControllerImpl.java
+@@ -296,8 +296,11 @@ public class NotificationShadeWindowControllerImpl implements NotificationShadeW
+                 LineageSettings.System.LOCKSCREEN_ROTATION,
+                 mContext.getResources().getBoolean(org.lineageos.platform.internal.R.bool.
+                         config_lockScreenRotationEnabledByDefault) ? 1 : 0) != 0;
+-        return mKeyguardStateController.isKeyguardScreenRotationAllowed()
+-                && (enableLockScreenRotation && enableAccelerometerRotation);
++        if (enableAccelerometerRotation) {
++            return mKeyguardStateController.isKeyguardScreenRotationAllowed() &&
++                    enableAccelerometerRotation;
++        }
++        return mKeyguardStateController.isKeyguardScreenRotationAllowed();
+     }
+ 
+     /**
+-- 
+2.52.0
+

@@ -80,3 +80,9 @@ $(call inherit-product, device/oneplus/sm8750-common/common.mk)
 
 # Inherit from the proprietary files makefile.
 $(call inherit-product, vendor/oneplus/erhai/erhai-vendor.mk)
+
+# Avium
+include device/oneplus/erhai/avium-common.mk
+
+# Sign build
+include vendor/lineage-priv/keys/keys.mk
