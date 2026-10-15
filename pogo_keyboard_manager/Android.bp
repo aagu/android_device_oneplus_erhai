@@ -1,0 +1,110 @@
+//
+// Copyright (C) 2026 The LineageOS Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+java_library_host {
+    name: "PogoKeyboardCore",
+    srcs: [
+        "src/org/lineageos/pogokeyboard/KeyboardAction.java",
+        "src/org/lineageos/pogokeyboard/KeyboardCoordinator.java",
+        "src/org/lineageos/pogokeyboard/KeyboardEvent.java",
+        "src/org/lineageos/pogokeyboard/KeyboardIdentity.java",
+        "src/org/lineageos/pogokeyboard/KeyboardState.java",
+        "src/org/lineageos/pogokeyboard/TargetRecord.java",
+        "host_stubs/**/*.java",
+    ],
+}
+
+java_test_host {
+    name: "PogoKeyboardCoreTests",
+    srcs: [
+        "src/org/lineageos/pogokeyboard/KeyboardAction.java",
+        "src/org/lineageos/pogokeyboard/KeyboardCoordinator.java",
+        "src/org/lineageos/pogokeyboard/KeyboardEvent.java",
+        "src/org/lineageos/pogokeyboard/KeyboardIdentity.java",
+        "src/org/lineageos/pogokeyboard/KeyboardState.java",
+        "src/org/lineageos/pogokeyboard/TargetRecord.java",
+        "host_stubs/**/*.java",
+        "tests/src/org/lineageos/pogokeyboard/KeyboardCoordinatorTest.java",
+        "tests/src/org/lineageos/pogokeyboard/KeyboardIdentityTest.java",
+        "tests/src/org/lineageos/pogokeyboard/KeyboardSequenceScenarioTest.java",
+        "tests/src/org/lineageos/pogokeyboard/TargetRecordTest.java",
+    ],
+
+    static_libs: [
+        "junit",
+    ],
+    test_suites: ["general-tests"],
+}
+
+android_app {
+    name: "OPlusPogoKeyboardManager",
+    srcs: [
+        "src/**/*.java",
+        "src/**/*.aidl",
+    ],
+    manifest: "AndroidManifest.xml",
+    certificate: "platform",
+    platform_apis: true,
+    privileged: true,
+    system_ext_specific: true,
+    required: [
+        "privapp-permissions-pogokeyboard.xml",
+        "default-permissions-pogokeyboard.xml",
+    ],
+}
+
+prebuilt_etc {
+    name: "privapp-permissions-pogokeyboard.xml",
+    sub_dir: "permissions",
+    src: "permissions/privapp-permissions-pogokeyboard.xml",
+    system_ext_specific: true,
+    filename_from_src: true,
+}
+
+prebuilt_etc {
+    name: "default-permissions-pogokeyboard.xml",
+    sub_dir: "default-permissions",
+    src: "permissions/default-permissions-pogokeyboard.xml",
+    system_ext_specific: true,
+    filename_from_src: true,
+}
+
+android_test {
+    name: "PogoKeyboardPlatformTests",
+    manifest: "tests/AndroidManifest.xml",
+    srcs: [
+        "src/**/*.java",
+        "src/**/*.aidl",
+        "tests/src/**/*.java",
+    ],
+    platform_apis: true,
+    certificate: "platform",
+    static_libs: [
+        "androidx.test.core",
+        "androidx.test.rules",
+        "androidx.test.ext.junit",
+        "junit",
+    ],
+    test_suites: [
+        "general-tests",
+        "device-tests",
+    ],
+}
+

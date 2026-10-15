@@ -1,0 +1,2 @@
+# Snapshot request property for erhai pogo keyboard manager
+system_internal_prop(pogo_keyboard_snapshot_prop)

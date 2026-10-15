@@ -75,6 +75,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     OplusPen
 
+# Pogo Keyboard
+PRODUCT_PACKAGES += \
+    init.pogo_keyboard.rc \
+    OPlusPogoKeyboardManager \
+    privapp-permissions-pogokeyboard.xml \
+    default-permissions-pogokeyboard.xml
+
 # Inherit from the common OEM chipset makefile.
 $(call inherit-product, device/oneplus/sm8750-common/common.mk)
 

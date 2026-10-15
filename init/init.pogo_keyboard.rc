@@ -1,0 +1,6 @@
+#
+# init.pogo_keyboard.rc
+#
+on property:sys.erhai.pogo.snapshot_request=*
+    wait /proc/pogopin/kbd_keypad_status 1
+    write /proc/pogopin/kbd_keypad_status 1

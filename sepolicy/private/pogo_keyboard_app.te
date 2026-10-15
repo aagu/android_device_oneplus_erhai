@@ -1,0 +1,20 @@
+type pogo_keyboard_app, domain, coredomain;
+
+app_domain(pogo_keyboard_app)
+
+# Allow pogo_keyboard_app to listen to kernel uevents via netlink kobject uevent socket (read-only, no write/append)
+allow pogo_keyboard_app self:netlink_kobject_uevent_socket { create read getattr bind setopt getopt };
+
+# Allow setting snapshot request property sys.erhai.pogo.snapshot_request
+set_prop(pogo_keyboard_app, pogo_keyboard_snapshot_prop)
+get_prop(pogo_keyboard_app, pogo_keyboard_snapshot_prop)
+
+# Allow service bindings and bluetooth interactions
+allow pogo_keyboard_app bluetooth_manager_service:service_manager find;
+allow pogo_keyboard_app bluetooth_service:service_manager find;
+allow pogo_keyboard_app activity_service:service_manager find;
+
+# Binder IPC
+binder_use(pogo_keyboard_app)
+binder_call(pogo_keyboard_app, system_server)
+binder_call(pogo_keyboard_app, bluetooth)

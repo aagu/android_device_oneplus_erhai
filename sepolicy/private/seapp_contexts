@@ -1,0 +1,2 @@
+# Pogo Keyboard Manager App
+user=_app isPrivApp=true seinfo=platform name=org.lineageos.pogokeyboard domain=pogo_keyboard_app type=privapp_data_file levelFrom=user
